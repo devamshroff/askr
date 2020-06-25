@@ -6,6 +6,7 @@ from urllib.parse import unquote
 import sqlite3
 from flask_pymongo import PyMongo
 import bcrypt
+from random import randint
 
 app = Flask(__name__, template_folder='templates')
 # app.config["MONGO_URI"] = "mongodb://localhost:27017/subspacedb"
@@ -17,12 +18,17 @@ def index():
 
 @app.route('/naiveDecider', methods = ['GET', 'POST'])
 def naiveDecider():
-    return render_template('naiveDecider.html')
+    if len(request.form) == 0:
+        print("request.form is null")
+        return render_template('naiveDecider.html')
+    # return render_template('naiveDecider.html')
+    options = request.form['options']
+    optionList = options.split(',')
+    n = randint(0, len(optionList)-1)
+    print(optionList[n])
+    return render_template('naiveDecider.html', options = options, ans = optionList[n])
 
-@app.route('/addOption', methods = ['GET', 'POST'])
-def addOption():
-    option = request.form['option']
-    return render_template('naiveDecider.html')
+
 
 # @app.route('/signup')
 # def signup():

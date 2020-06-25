@@ -1,28 +1,16 @@
 <html>
-    <body>
-        <table>
-            <tr>
-                <td>
-                    <form action="{{url_for('addOption')}}" method="post">
-                        <textarea name="option"></textarea>
-                    
-                    <input type = "submit" value = "Add Option">
-                    </form>
-                </td>
-                <td>
-                    Deciding Between:
-                    <!-- {% for item in seq -%}
-                        {{ item }}
-                    {%- endfor %} -->
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                <button>What should I do?</button>
-                </td>
-                <td></td>
-            </tr>
-        </table>
-    </body>
+<body>
+    <form action="{{url_for('naiveDecider')}}" method="post">
+        <h3>Enter a comma separated list of all the options you are considering</h3>
+        <textarea name="options"></textarea>
+        <input type="submit" value="What should I do?">
+    </form>
+    {% if options %}
+        Your options: {{ options }}
+        <h3>Chosen Activity:</h3>
+        <h2>{{ ans }}</h2>
+    {% endif %}
+</body>
+
 </html>
