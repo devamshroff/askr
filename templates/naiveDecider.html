@@ -1,0 +1,28 @@
+<html>
+    <body>
+        <table>
+            <tr>
+                <td>
+                    <form action="{{url_for('addOption')}}" method="post">
+                        <textarea name="option"></textarea>
+                    
+                    <input type = "submit" value = "Add Option">
+                    </form>
+                </td>
+                <td>
+                    Deciding Between:
+                    <!-- {% for item in seq -%}
+                        {{ item }}
+                    {%- endfor %} -->
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                <button>What should I do?</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </body>
+</html>

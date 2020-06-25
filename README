@@ -1,0 +1,8 @@
+App for UCLA and UCSB students.
+
+Requirements:
+bcrypt
+flask_pymongo
+sqlite3
+Flask
+requests
