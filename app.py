@@ -1,20 +1,28 @@
 import requests
 from flask import Flask, request, render_template, jsonify, make_response
 import json
-import urllib.parse as urlparse
-from urllib.parse import unquote
+# import urllib.parse as urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError:
+     from urlparse import urlparse
+try:
+	from urllib.parse import unquote
+except ImportError:
+	from urlparse import unquote
+
 import sqlite3
 from flask_pymongo import PyMongo
 import bcrypt
 from random import randint
 
 app = Flask(__name__, template_folder='templates')
-# app.config["MONGO_URI"] = "mongodb://localhost:27017/subspacedb"
-# mongo = PyMongo(app)
+app.config["MONGO_URI"] = "mongodb://localhost:27017/subspacedb"
+mongo = PyMongo(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+	return render_template('index.html')
 
 @app.route('/naiveDecider', methods = ['GET', 'POST'])
 def naiveDecider():
@@ -28,22 +36,25 @@ def naiveDecider():
     print(optionList[n])
     return render_template('naiveDecider.html', options = options, ans = optionList[n])
 
+@app.route('/signup', methods = ['GET', 'POST'])
+def signup():
+	return render_template('signup.html')
 
 
 # @app.route('/signup')
 # def signup():
 #     return render_template('signup.html')
 
-# @app.route('/create_account', methods = ['GET', 'POST'])
-# def create_account():
-#     name = request.form['name']
+@app.route('/create_account', methods = ['GET', 'POST'])
+def create_account():
+	name = request.form['name']
 #     dob = request.form['dob']
 #     uni = request.form['uni']
 #     DLN = request.form['DLN']
 #     address = request.form['address']
-#     email = request.form['email']
+	email = request.form['email']
 #     password = request.form['password']
-#     error = ""
+	error = ""
 
 #     # lets encrypt the password for security.
 #     b_password = str.encode(password)
@@ -51,7 +62,11 @@ def naiveDecider():
 #     hashed = bcrypt.hashpw(b_password, salt)  
 #     # hashed = hashed.decode('utf-8')
 
-#     try:
+	try:
+		mongo.db.users.insert({"email": email})
+	except:
+		error = "Email already exists"
+	return render_template('signup-thankyou.html', name = name, error = error)
 #         mongo.db.users.insert(
 #             {"email": email, "password": hashed, "name": name, "dob": dob, "uni": uni, "DLN": DLN, "address": address}
 #             )
@@ -59,22 +74,29 @@ def naiveDecider():
 #         error = "Email already exists"
 #     return render_template('signup-thankyou.html', name = name, error = error)
 
-# @app.route('/login')
-# def login():
-#     return render_template('login.html')
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+	return render_template('login.html')
 
-# @app.route('/load_user_home', methods = ['GET', 'POST'])
-# def load_user_home():
-#     email = request.form['email']
+@app.route('/load_user_home', methods = ['GET', 'POST'])
+def load_user_home():
+	email = request.form['email']
 #     password = request.form['password']
+#	print("load_user_home entered")
 
 
+#	user = mongo.db.users.find({"email": email})
+	email_exists = mongo.db.users.find( { 'email': { "$in":[email] } } ).count()
+#	print(user)
+#	print(email)
+#	print(email_exists)
+#	print("after user, before if not user")
+#	if not user:
 
-#     user = mongo.db.users.find({"email": email})
-
-#     if not user: 
-#         error = "No user user with this email/password was found. Please try again."
-#         return render_template('login.html', error = error)
+	if email_exists == 0:
+#		print("is not user")
+		error = "No user user with this email/password was found. Please try again."
+		return render_template('login.html', error = error)
     
 #     # check password
 #     b_password = str.encode(password)
@@ -86,19 +108,20 @@ def naiveDecider():
     
 #     # set cookie
     
-#     return render_template('user_home.html', name = user[0]['name'])
+#	return render_template('user_home.html', name = user[0]['name'])
+	return render_template('naiveDecider.html')
 
-# @app.route('/view_listings', methods = ['GET', 'POST'])
-# def view_listings():
-#     return render_template('view_listings.html')
+@app.route('/view_listings', methods = ['GET', 'POST'])
+def view_listings():
+	return render_template('view_listings.html')
 
-# @app.route('/create_listing', methods = ['GET', 'POST'])
-# def create_listing():
-#     return render_template('create_listing.html')
+@app.route('/create_listing', methods = ['GET', 'POST'])
+def create_listing():
+	return render_template('create_listing.html')
 
-# @app.route('/find_space')
-# def find_space():
-#     return render_template('find_space.html')
+@app.route('/find_space')
+def find_space():
+	return render_template('find_space.html')
 
 if __name__== "__main__":
     app.run()
