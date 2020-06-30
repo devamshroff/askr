@@ -1,20 +1,20 @@
 <html>
-    <body>
-        <h1>Login</h1>
-			<form action="{{ url_for('load_user_home') }}" method="post">	
-				<table>
-					<tr>
-						<td>
-                            Email
-                            <textarea name="email" style="width:50%"></textarea>
-                        </td>
-                        <td>
-                            Password
-                            <textarea name="password" style="width:50%"></textarea>
-                        </td>
-                    </tr>
-                <input type  = "submit" value = "Login!">
-            </form>
-            {{error}}
-    </body>
+
+<body>
+	<h1>Login</h1>
+
+	<form action="{{ url_for('load_user_home') }}" method="post">	
+		<table>
+			<tr>
+			<td>
+				Email
+				<textarea name="email" style="width:50%"></textarea>
+			</td>
+			</tr>
+		</table>
+		<input type  = "submit" value = "Login!">
+	</form>
+	{{error}}
+</body>
+
 </html>

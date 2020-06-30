@@ -1,46 +1,26 @@
 <html>
-    <body>
-        <h1>Signup!</h1>
-        <form action ="{{ url_for('create_account') }}" method="post">
-                <table>
-                    <tr>
-                        <td>
-                            Name
-                            <textarea name="name" style="width:50%"></textarea>
-                        </td>
-                        <td>
-                            Date of Birth
-                            <textarea name="dob" style="width:50%"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            School/University
-                            <textarea name="uni" style="width:50%"></textarea>
-                        </td>
-                        <td>
-                            Drivers License Number / California ID Number
-                            <textarea name="DLN" style="width:50%"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Address
-                            <textarea name="address" style="width:50%"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Email
-                            <textarea name="email" style="width:50%"></textarea>
-                        </td>
-                        <td>
-                            Password
-                            <textarea name="password" style="width:50%"></textarea>
-                        </td>
-                    </tr>
-                </table>
-                <input type  = "submit" value = "Sign Me Up!">
-            </form>
-    </body>
+
+<body>
+	<h1>Signup!</h1>
+
+	<form action ="{{ url_for('create_account') }}" method="post">
+		<table>
+			<tr>
+			<td>
+				Name
+				<textarea name="name" style="width:50%"></textarea>
+			</td>
+			</tr>
+
+			<tr>
+			<td>
+				Email
+				<textarea name="email" style="width:50%"></textarea>
+			</td>
+			</tr>
+		</table>
+		<input type  = "submit" value = "Sign Me Up!">
+	</form>
+</body>
+
 </html>
