@@ -5,5 +5,6 @@
 use subspacedb
 db.createCollection("users")
 db.users.createIndex( { "email": 1 }, { unique: true } )
+db.users.createIndex( { "password": 1 } )
 db.createCollection("listings")
 
