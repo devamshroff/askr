@@ -111,17 +111,5 @@ def load_user_home():
 #	return render_template('user_home.html', name = user[0]['name'])
 	return render_template('naiveDecider.html')
 
-@app.route('/view_listings', methods = ['GET', 'POST'])
-def view_listings():
-	return render_template('view_listings.html')
-
-@app.route('/create_listing', methods = ['GET', 'POST'])
-def create_listing():
-	return render_template('create_listing.html')
-
-@app.route('/find_space')
-def find_space():
-	return render_template('find_space.html')
-
 if __name__== "__main__":
     app.run()

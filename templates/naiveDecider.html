@@ -2,9 +2,9 @@
 
 <body>
     <form action="{{url_for('naiveDecider')}}" method="post">
-        <h3>Enter a comma separated list of all the options you are considering</h3>
+        <h3>Enter a comma separated list of all the movies you are considering</h3>
         <textarea name="options"></textarea>
-        <input type="submit" value="What should I do?">
+        <input type="submit" value="What movie should I watch?">
     </form>
     {% if options %}
         Your options: {{ options }}
